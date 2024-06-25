@@ -1,67 +1,20 @@
-/* pages/survey/SurveyPage.module.css */
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.title {
-    text-align: center;
-}
-
-.formContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.label {
-    margin-bottom: 5px;
-}
-
-.input,
-.select,
-.button {
-    margin-bottom: 10px;
-    padding: 8px;
-    font-size: 16px;
-}
-
-.button {
-    background-color: #0070f3;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-}
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-/* pages/analytics/AnalyticsPage.module.css */
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #f0f0f0;
 }
 
 .title {
-    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .analyticsContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    justify-content: space-around;
 }
 
-.chartContainer {
-    width: 400px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.canvasContainer {
-    width: 100%;
-    margin-bottom: 20px;
-}
+/* Add more styles as needed */

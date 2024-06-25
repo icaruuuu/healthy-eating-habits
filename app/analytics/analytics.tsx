@@ -1,5 +1,5 @@
-// pages/analytics/AnalyticsPage.tsx
-"use client"
+// pages/"use client";analytics/AnalyticsPage.tsx
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
