@@ -1,0 +1,78 @@
+/* SurveyPage.module.css */
+
+.container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+/* Scoped styles for form */
+.formContainer {
+    margin-top: 20px;
+}
+
+.formContainer label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 18px;
+    color: #000;
+}
+
+.formContainer input[type='text'],
+.formContainer input[type='email'],
+.formContainer input[type='number'],
+.formContainer select {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    color: #000;
+}
+
+.formContainer select {
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23333" d="M256 352L32 128h448z"/></svg>') no-repeat right 12px center/10px 10px;
+    padding-right: 30px;
+    color: #000;
+}
+
+.formContainer input:focus,
+.formContainer select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.formContainer button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.formContainer button:hover {
+    background-color: #45a049;
+}

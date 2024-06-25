@@ -1,0 +1,82 @@
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./app/survey/SurveyPage.module.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/* SurveyPage.module.css */
+
+.SurveyPage_container__FPSZk {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+.SurveyPage_title__Y9fSS {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+/* Scoped styles for form */
+.SurveyPage_formContainer__4NAMR {
+    margin-top: 20px;
+}
+
+.SurveyPage_formContainer__4NAMR label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 18px;
+    color: #000;
+}
+
+.SurveyPage_formContainer__4NAMR input[type='text'],
+.SurveyPage_formContainer__4NAMR input[type='email'],
+.SurveyPage_formContainer__4NAMR input[type='number'],
+.SurveyPage_formContainer__4NAMR select {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    color: #000;
+}
+
+.SurveyPage_formContainer__4NAMR select {
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23333" d="M256 352L32 128h448z"/></svg>') no-repeat right 12px center/10px 10px;
+    padding-right: 30px;
+    color: #000;
+}
+
+.SurveyPage_formContainer__4NAMR input:focus,
+.SurveyPage_formContainer__4NAMR select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.SurveyPage_formContainer__4NAMR button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.SurveyPage_formContainer__4NAMR button:hover {
+    background-color: #45a049;
+}
+
