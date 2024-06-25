@@ -17,7 +17,12 @@ export async function POST(request) {
 
 
   export const GET = async () => {
-    await connectMongo()
-    return NextResponse.json({message: "bnb"}, { status: 200})
-  }
+    try {
+      await connectMongo();
+      const surveys = await HealthSurvey.find({}); // Retrieve all surveys
+      return NextResponse.json({ surveys }, { status: 200 });
+    } catch (error) {
+      return NextResponse.json({ error: 'Error fetching survey data' }, { status: 500 });
+    }
+  };
   
