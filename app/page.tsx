@@ -14,6 +14,7 @@ export default function Home() {
             Take the Survey
           </a>
         </Link>
+        <Link href="/analytics/AnalyticsPage">View Analytics</Link>
       </div>
     </main>
   );
