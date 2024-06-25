@@ -6,13 +6,13 @@ import React, { useState, useEffect } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2'; // Assuming you may need different chart types
 import styles from './AnalyticsPage.module.css'; // Import styles if needed
 
-const SurveyAnalytics: React.FC = () => {
+const Analytics: React.FC = () => {
   const [surveyData, setSurveyData] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/submit');
+        const response = await fetch('/api/submit-survey');
         if (response.ok) {
           const data = await response.json();
           setSurveyData(data.surveys);
@@ -222,4 +222,4 @@ const SurveyAnalytics: React.FC = () => {
   );
 };
 
-export default SurveyAnalytics;
+export default Analytics;
