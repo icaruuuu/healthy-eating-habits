@@ -29,6 +29,8 @@ const SurveyPage: React.FC = () => {
         gpa: ''
     });
 
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
@@ -39,6 +41,7 @@ const SurveyPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         try {
           await axios.post('/api/submit-survey', formData);
           window.location.href = '/thankyou';
