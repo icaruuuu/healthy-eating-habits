@@ -19,12 +19,12 @@ const AnalyticsPage: React.FC = () => {
         const fetchData = async () => {
             try {
                 const responses = await Promise.all([
-                    axios.get('/api/getQuestionAnalytics?question=gender'),
-                    axios.get('/api/getQuestionAnalytics?question=fruits_vegetables'),
-                    axios.get('/api/getQuestionAnalytics?question=fast_food'),
-                    axios.get('/api/getQuestionAnalytics?question=diet'),
-                    axios.get('/api/getQuestionAnalytics?question=health_rating'),
-                    axios.get('/api/getQuestionAnalytics?question=gpa'),
+                    axios.get('/api/getQuestionsAnalytics?question=gender'),
+                    axios.get('/api/getQuestionsAnalytics?question=fruits_vegetables'),
+                    axios.get('/api/getQuestionsAnalytics?question=fast_food'),
+                    axios.get('/api/getQuestionsAnalytics?question=diet'),
+                    axios.get('/api/getQuestionsAnalytics?question=health_rating'),
+                    axios.get('/api/getQuestionsAnalytics?question=gpa'),
                     // Add more API calls for other questions as needed
                 ]);
 
