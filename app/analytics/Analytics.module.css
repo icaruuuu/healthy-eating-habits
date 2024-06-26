@@ -1,6 +1,6 @@
 /* Analytics.module.css */
 
-:root {
+:global(:root) {
     --primary-color: #4caf50; /* Green */
     --secondary-color: #388e3c; /* Darker Green */
     --background-color: #f0f4c3; /* Light Green Background */
