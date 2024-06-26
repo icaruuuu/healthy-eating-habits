@@ -23,16 +23,27 @@ interface HealthSurvey {
   class_attendance: number;
 }
 
-const GraphCard: React.FC<{ title: string; chartData: any }> = ({ title, chartData }) => (
-  <div className={styles.card}>
-    <h2>{title}</h2>
-    <div className={styles.chartWrapper}>
-      {chartData.type === 'bar' && <Bar data={chartData.data} options={{ maintainAspectRatio: false }} />}
-      {chartData.type === 'line' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
-      {chartData.type === 'pie' && <Pie data={chartData.data} options={{ maintainAspectRatio: false }} />}
+const GraphCard: React.FC<{ title: string; chartData: any; counts: any }> = ({ title, chartData, counts }) => (
+    <div className={styles.card}>
+      <h2>{title}</h2>
+      <div className={styles.chartWrapper}>
+        {chartData.type === 'bar' && <Bar data={chartData.data} options={{ maintainAspectRatio: false }} />}
+        {chartData.type === 'line' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
+        {chartData.type === 'pie' && <Pie data={chartData.data} options={{ maintainAspectRatio: false }} />}
+      </div>
+      <div className={styles.counts}>
+        <h3>Counts:</h3>
+        <ul>
+          {Object.keys(counts).map(key => (
+            <li key={key}>
+              {key}: {counts[key]}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-  </div>
-);
+  );
+  
 
 const GraphPage: React.FC = () => {
   const [surveyData, setSurveyData] = useState<HealthSurvey[]>([]);
@@ -272,14 +283,13 @@ const GraphPage: React.FC = () => {
     <div className={styles.pageBackground}>
       <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
       <div className={styles.cardContainer}>
-        <GraphCard title="Gender Distribution" chartData={genderChartData} />
-        <GraphCard title="Course Distribution" chartData={courseChartData} />
-        <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
-        <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
-        <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
-        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} />
-        <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
-
+        <GraphCard title="Gender Distribution" chartData={genderChartData} counts={genderCount} />
+        <GraphCard title="Course Distribution" chartData={courseChartData} counts={courseCount} />
+        <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} counts={fruitsVegetablesCount} />
+        <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} counts={fastFoodCount} />
+        <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} counts={dietDistribution} />
+        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} counts={undefined} />
+        <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} counts={gpaByDiet} />
       </div>
     </div>
   );

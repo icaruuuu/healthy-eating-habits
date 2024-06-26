@@ -43,4 +43,20 @@
   .chartWrapper canvas {
     border-radius: 10px;
   }
+  .counts {
+    margin-top: 20px;
+  }
   
+  .counts h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
+  .counts ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .counts li {
+    margin-bottom: 5px;
+  }
