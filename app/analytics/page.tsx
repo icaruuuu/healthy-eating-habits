@@ -29,17 +29,24 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
   <div className={styles.card}>
     <h2>{title}</h2>
     <div className={styles.chartWrapper}>
-      <Pie data={chartData} options={{ maintainAspectRatio: false }} width={400} height={400} />
+      <Pie data={chartData} options={{ maintainAspectRatio: false }} width={window.innerWidth * 0.5} height={window.innerWidth * 0.5} />
     </div>
   </div>
 );
 
 const ResponseChart: React.FC<{ question: string, responses: number[] }> = ({ question, responses }) => {
+  // Count occurrences of each GPA response for the question
+  const responseCounts = responses.reduce((counts: Record<string, number>, gpa: number) => {
+    const key = gpa.toFixed(2); // Round to 2 decimal places for consistency
+    counts[key] = (counts[key] || 0) + 1;
+    return counts;
+  }, {});
+
   const data = {
-    labels: responses.map((_, index) => `Response ${index + 1}`),
+    labels: Object.keys(responseCounts),
     datasets: [{
       label: question,
-      data: responses,
+      data: Object.values(responseCounts),
       backgroundColor: [
         'rgba(255, 99, 132, 0.6)',
         'rgba(54, 162, 235, 0.6)',
@@ -86,26 +93,27 @@ const GraphPage: React.FC = () => {
     fetchData();
   }, []);
 
+  // Process survey data for charts
   const processData = (data: FormData[]) => {
     const dietCategories = ["None", "Vegetarian", "Vegan", "Keto", "Other"];
     const dietData = dietCategories.map(diet => {
       const dietSurveyData = data.filter(d => d.diet === diet);
       const averageGPA = dietSurveyData.reduce((acc, cur) => acc + parseFloat(cur.gpa), 0) / dietSurveyData.length;
-      return averageGPA ? averageGPA.toFixed(2) : 0;
+      return averageGPA ? averageGPA.toFixed(2) : '0';
     });
 
     const studyHoursCategories = ["0-5 hours", "6-10 hours", "11-15 hours", "16+ hours"];
     const studyHoursData = studyHoursCategories.map(hours => {
       const hoursSurveyData = data.filter(d => d.study_hours === hours);
       const averageGPA = hoursSurveyData.reduce((acc, cur) => acc + parseFloat(cur.gpa), 0) / hoursSurveyData.length;
-      return averageGPA ? averageGPA.toFixed(2) : 0;
+      return averageGPA ? averageGPA.toFixed(2) : '0';
     });
 
     const healthRatings = ["1", "2", "3", "4", "5"];
     const healthRatingData = healthRatings.map(rating => {
       const ratingSurveyData = data.filter(d => d.health_rating === rating);
       const averageGPA = ratingSurveyData.reduce((acc, cur) => acc + parseFloat(cur.gpa), 0) / ratingSurveyData.length;
-      return averageGPA ? averageGPA.toFixed(2) : 0;
+      return averageGPA ? averageGPA.toFixed(2) : '0';
     });
 
     return { dietData, studyHoursData, healthRatingData };
