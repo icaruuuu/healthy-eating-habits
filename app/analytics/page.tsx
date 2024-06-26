@@ -6,7 +6,7 @@ import { Bar, Pie, Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css';
 
-interface HealthSurvey {
+interface SurveyData {
   name: string;
   age: number;
   gender: string;
@@ -35,7 +35,7 @@ const GraphCard: React.FC<{ title: string; chartData: any }> = ({ title, chartDa
 );
 
 const GraphPage: React.FC = () => {
-  const [surveyData, setSurveyData] = useState<HealthSurvey[]>([]);
+  const [surveyData, setSurveyData] = useState<SurveyData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,13 +44,12 @@ const GraphPage: React.FC = () => {
         setSurveyData(response.data);
       } catch (error) {
         console.error('Error fetching health survey data:', error);
-        // Implement error handling
       }
     };
     fetchData();
   }, []);
 
-  const processData = (data: HealthSurvey[]) => {
+  const processData = (data: SurveyData[]) => {
     const genderCount = countResponses(data.map(entry => entry.gender));
     const courseCount = countResponses(data.map(entry => entry.course));
     const fruitsVegetablesCount = countResponses(data.map(entry => entry.fruits_vegetables));
@@ -84,7 +83,7 @@ const GraphPage: React.FC = () => {
     }, {});
   };
 
-  const calculateAverageGpaByDiet = (data: HealthSurvey[]) => {
+  const calculateAverageGpaByDiet = (data: SurveyData[]) => {
     const dietGpaData: { [key: string]: number[] } = {};
     data.forEach(entry => {
       if (!(entry.diet in dietGpaData)) {
@@ -101,7 +100,7 @@ const GraphPage: React.FC = () => {
     return averageGpaByDiet;
   };
 
-  const calculateGpaDistribution = (data: HealthSurvey[]) => {
+  const calculateGpaDistribution = (data: SurveyData[]) => {
     const gpaData: { [key: string]: number } = {};
     data.forEach(entry => {
       const gpa = parseFloat(entry.gpa);
@@ -288,12 +287,12 @@ const GraphPage: React.FC = () => {
     <div className={styles.pageBackground}>
       <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
       <div className={styles.cardContainer}>
-        <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
         <GraphCard title="Gender Distribution" chartData={genderChartData} />
         <GraphCard title="Course Distribution" chartData={courseChartData} />
         <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
         <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
         <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
+        <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
         <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} />
       </div>
     </div>
