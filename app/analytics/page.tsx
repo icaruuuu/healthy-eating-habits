@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -6,6 +6,7 @@ import { Line, Pie, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css'; // Import the CSS module
 
+// Define the SurveyData interface to match the structure of your survey data
 interface SurveyData {
   name: string;
   age: number;
@@ -23,6 +24,7 @@ interface SurveyData {
   class_attendance: number;
 }
 
+// GraphCard component to display individual charts
 const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie' | 'Bar' }> = ({ title, chartData, type = 'Line' }) => {
   console.log(`Rendering ${title} with data:`, chartData);
 
@@ -42,9 +44,11 @@ const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie'
   );
 };
 
+// Main component to fetch and process survey data, and render charts
 const GraphPage: React.FC = () => {
   const [surveyData, setSurveyData] = useState<SurveyData[]>([]);
 
+  // Fetch survey data from the API on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,6 +62,7 @@ const GraphPage: React.FC = () => {
     fetchData();
   }, []);
 
+  // Process data for healthy eating habits chart
   const processHealthyEatingData = (data: SurveyData[]) => {
     const labels = ["Fruits & Vegetables Consumption", "Fast Food Consumption"];
     const fruitsVegetables = data.reduce((acc, cur) => acc + cur.fruits_vegetables, 0) / data.length;
@@ -72,12 +77,10 @@ const GraphPage: React.FC = () => {
     };
   };
 
+  // Process data for fast food consumption frequency chart
   const processFastFoodData = (data: SurveyData[]) => {
     const fastFoodLevels = [0, 1, 2, 3, 4, 5, 6, 7];
-    const fastFoodCounts = fastFoodLevels.map(level => {
-      const count = data.filter(d => d.fast_food === level).length;
-      return count;
-    });
+    const fastFoodCounts = fastFoodLevels.map(level => data.filter(d => d.fast_food === level).length);
 
     return {
       labels: fastFoodLevels,
@@ -88,12 +91,10 @@ const GraphPage: React.FC = () => {
     };
   };
 
+  // Process data for diet prevalence chart
   const processDietData = (data: SurveyData[]) => {
     const diets = ["None", "Vegetarian", "Vegan", "Keto", "Other"];
-    const dietCounts = diets.map(diet => {
-      const count = data.filter(d => d.diet === diet).length;
-      return count;
-    });
+    const dietCounts = diets.map(diet => data.filter(d => d.diet === diet).length);
 
     return {
       labels: diets,
@@ -110,6 +111,7 @@ const GraphPage: React.FC = () => {
     };
   };
 
+  // Process data for correlation between eating habits and health rating chart
   const processCorrelationData = (data: SurveyData[]) => {
     const labels = data.map(d => d.age);
     const fruitsVegetables = data.map(d => d.fruits_vegetables);
@@ -136,6 +138,7 @@ const GraphPage: React.FC = () => {
     };
   };
 
+  // Process data for GPA by diet chart
   const processGpaByDietData = (data: SurveyData[]) => {
     const diets = ["None", "Vegetarian", "Vegan", "Keto", "Other"];
     const dietGpas = diets.map(diet => {
@@ -162,6 +165,7 @@ const GraphPage: React.FC = () => {
     };
   };
 
+  // Generate chart data for each graph
   const healthyEatingData = processHealthyEatingData(surveyData);
   const fastFoodData = processFastFoodData(surveyData);
   const dietData = processDietData(surveyData);
@@ -172,9 +176,9 @@ const GraphPage: React.FC = () => {
     <div>
       <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
       <div className={styles.cardContainer}>
-        <GraphCard title="Descriptive Statistics on Healthy Eating Habits" chartData={healthyEatingData} type="Pie" />
+        <GraphCard title="Statistics on Healthy Eating Habits" chartData={healthyEatingData} type="Pie" />
         <GraphCard title="Frequency Distribution of Fast Food Consumption" chartData={fastFoodData} type="Bar" />
-        <GraphCard title="Analysis of the Prevalence of Different Diets" chartData={dietData} type="Pie" />
+        <GraphCard title="Analysis of Different Diets" chartData={dietData} type="Pie" />
         <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationData} type="Line" />
         <GraphCard title="Comparative Analysis of GPA based on Different Dietary Habits" chartData={gpaByDietData} type="Bar" />
       </div>
