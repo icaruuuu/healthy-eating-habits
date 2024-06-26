@@ -15,7 +15,7 @@ export default function Home() {
           </a>
         </Link>
         <Link href="/analytics">
-          <a className="block mt-4 text-center text-green-500 hover:underline">
+          <a className="block mt-4 text-center text-white-500 hover:underline">
             View Analytics
           </a>
         </Link>
