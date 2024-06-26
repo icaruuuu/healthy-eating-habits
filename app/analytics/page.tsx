@@ -49,7 +49,7 @@ const GraphPage: React.FC = () => {
     // Fetch survey data from the API endpoint
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/get-survey-data');
+        const response = await axios.get('/api/get-survey');
         console.log("Survey data received:", response.data);
         setSurveyData(response.data);
       } catch (error) {
