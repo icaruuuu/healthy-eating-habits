@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css'; // Ensure this CSS module exists
-import Link from 'next/link';
 
 interface HealthSurvey {
   name: string;
@@ -44,6 +43,7 @@ const GraphPage: React.FC = () => {
         setSurveyData(response.data);
       } catch (error) {
         console.error('Error fetching health survey data:', error);
+        // Implement error handling, e.g., setSurveyData([]) or display error message
       }
     };
     fetchData();
@@ -100,7 +100,7 @@ const GraphPage: React.FC = () => {
   const fruitVegetableChartData = {
     labels: Array.from(Array(fruitVegetableData.length).keys()).map(String),
     datasets: [{
-      label: ['0', '1', '2', '3', '4', '5'],
+      label: 'Fruits and Vegetables Consumption',
       data: fruitVegetableData,
       fill: false,
       backgroundColor: [
