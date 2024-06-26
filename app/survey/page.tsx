@@ -87,9 +87,13 @@ const SurveyPage: React.FC = () => {
                     <option value="">Select course</option>
                     <option value="computer_science">Computer Science</option>
                     <option value="business_administration">Business Administration</option>
-                    <option value="psychology">Psychology</option>
+                    <option value="psychology">Accountancy</option>
                     <option value="engineering">Engineering</option>
                     <option value="medicine">Medicine</option>
+                    <option value="medicine">Information Technology</option>
+                    <option value="medicine">Architecture</option>
+                    <option value="medicine">Nursing</option>
+                    <option value="medicine">Criminology</option>
                     <option value="other">Other</option>
                 </select>
 
