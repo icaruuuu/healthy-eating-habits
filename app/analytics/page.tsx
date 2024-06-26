@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Bar, Line, Pie } from 'react-chartjs-2'; // Import necessary chart types
+import { Bar, Pie, Scatter } from 'react-chartjs-2'; // Import necessary chart types
 import 'chart.js/auto';
 import styles from './Analytics.module.css'; // Ensure this CSS module exists
 
@@ -29,7 +29,7 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
     <div className={styles.chartWrapper}>
       {/* Choose appropriate chart type based on the data */}
       {chartData.type === 'bar' && <Bar data={chartData.data} options={{ maintainAspectRatio: false }} />}
-      {chartData.type === 'line' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
+      {chartData.type === 'scatter' && <Scatter data={chartData.data} options={{ maintainAspectRatio: false }} />}
       {chartData.type === 'pie' && <Pie data={chartData.data} options={{ maintainAspectRatio: false }} />}
     </div>
   </div>
@@ -160,7 +160,6 @@ const GraphPage: React.FC = () => {
   const correlationChartData = {
     type: 'scatter',
     data: {
-      labels: healthRatingCorrelation.map((_, index) => `Entry ${index + 1}`),
       datasets: [{
         label: 'Correlation between Eating Habits and Health Rating',
         data: healthRatingCorrelation,
@@ -168,6 +167,25 @@ const GraphPage: React.FC = () => {
         borderColor: 'rgba(255, 159, 64, 1)',
         borderWidth: 1,
       }],
+    },
+    options: {
+      scales: {
+        x: {
+          type: 'linear',
+          position: 'bottom',
+          title: {
+            display: true,
+            text: 'Fruits and Vegetables Consumption',
+          },
+        },
+        y: {
+          type: 'linear',
+          title: {
+            display: true,
+            text: 'Health Rating',
+          },
+        },
+      },
     },
   };
 
