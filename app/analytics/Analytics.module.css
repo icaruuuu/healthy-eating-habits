@@ -1,10 +1,13 @@
 /* Analytics.module.css */
+body {
+    background-color: #b5e9bb; /* Light green background color */
+  }
 .title {
     font-size: 2em;
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
-    color: #333;
+    color: #333; /* Dark green for title */
   }
   
   .cardContainer {
@@ -16,7 +19,7 @@
   }
   
   .card {
-    background-color: #b5e9bb;
+    background-color: #b5e9bb; /* Light green background */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -27,7 +30,7 @@
   .card h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
-    color: #555;
+    color: #555; /* Dark green for heading */
   }
   
   .chartWrapper {
