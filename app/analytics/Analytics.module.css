@@ -1,25 +1,10 @@
 /* Analytics.module.css */
-
-:global(:root) {
-    --primary-color: #4caf50; /* Green */
-    --secondary-color: #388e3c; /* Darker Green */
-    --background-color: #f0f4c3; /* Light Green Background */
-    --text-color: #2e7d32; /* Text Green */
-    --card-background-color: #e8f5e9; /* Lighter Green for Cards */
-    --border-color: #c8e6c9; /* Border Color */
-  }
-  
-  body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
-  
-  .title {
+.title {
     font-size: 2em;
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
-    color: var(--primary-color);
+    color: #333;
   }
   
   .cardContainer {
@@ -31,19 +16,18 @@
   }
   
   .card {
-    background-color: var(--card-background-color);
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 300px;
     text-align: center;
-    border: 1px solid var(--border-color);
   }
   
   .card h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
-    color: var(--secondary-color);
+    color: #555;
   }
   
   .chartWrapper {
