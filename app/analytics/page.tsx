@@ -25,14 +25,36 @@ interface FormData {
   class_attendance: string;
 }
 
-const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartData }) => (
-  <div className={styles.card}>
-    <h2>{title}</h2>
-    <div className={styles.chartWrapper}>
-      <Pie data={chartData} options={{ maintainAspectRatio: false }} width={window.innerWidth * 0.5} height={window.innerWidth * 0.5} />
-    </div>
-  </div>
-);
+const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartData }) => {
+    useEffect(() => {
+      const handleResize = () => {
+        const chartWrapper = document.querySelector(`.${styles.chartWrapper}`) as HTMLElement | null;
+        if (chartWrapper) {
+            chartWrapper.style.width = `${window.innerWidth * 0.5}px`;
+            chartWrapper.style.height = `${window.innerWidth * 0.5}px`;
+        }
+        };
+          
+  
+      if (typeof window !== 'undefined') {
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }
+    }, []);
+  
+    return (
+      <div className={styles.card}>
+        <h2>{title}</h2>
+        <div className={styles.chartWrapper}>
+          {typeof window !== 'undefined' && (
+            <Pie data={chartData} options={{ maintainAspectRatio: false }} width={window.innerWidth * 0.5} height={window.innerWidth * 0.5} />
+          )}
+        </div>
+      </div>
+    );
+  };
+  
 
 const ResponseChart: React.FC<{ question: string, responses: number[] }> = ({ question, responses }) => {
   // Count occurrences of each GPA response for the question
