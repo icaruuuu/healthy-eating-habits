@@ -26,18 +26,22 @@ interface SurveyData {
 }
 
 // Component for rendering each graph card
-const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie' }> = ({ title, chartData, type = 'Line' }) => (
-  <div className={styles.card}>
-    <h2>{title}</h2>
-    <div className={styles.chartWrapper}>
-      {type === 'Pie' ? (
-        <Pie data={chartData} options={{ maintainAspectRatio: false }} />
-      ) : (
-        <Line data={chartData} options={{ maintainAspectRatio: false }} />
-      )}
+const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie' }> = ({ title, chartData, type = 'Line' }) => {
+  console.log(`Rendering ${title} with data:`, chartData); // Add console log for debugging
+
+  return (
+    <div className={styles.card}>
+      <h2>{title}</h2>
+      <div className={styles.chartWrapper}>
+        {type === 'Pie' ? (
+          <Pie data={chartData} options={{ maintainAspectRatio: false }} />
+        ) : (
+          <Line data={chartData} options={{ maintainAspectRatio: false }} />
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Main component for the graph page
 const GraphPage: React.FC = () => {

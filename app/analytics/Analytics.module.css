@@ -1,31 +1,52 @@
-/* Analytics.module.css */
-
+/* Overall container for the page */
 .cardContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    padding: 20px;
-  }  
-.card {
-    background-color: #ffffff;
+  }
+  
+  /* Individual card container */
+  .card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     width: 100%;
     max-width: 500px;
-    padding: 20px;
-    margin: 20px;
+    margin: 10px;
   }
   
-.chartWrapper {
+  /* Card title */
+  .card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Chart wrapper to ensure proper sizing and responsiveness */
+  .chartWrapper {
     position: relative;
-    height: 300px; /* Adjust height as needed */
+    height: 300px; /* Adjust this value as needed */
     width: 100%;
   }
   
-.title {
-    text-align: center;
+  /* Title for the page */
+  .title {
     font-size: 2rem;
+    text-align: center;
     margin-top: 20px;
-    margin-bottom: 20px;
-    color: #333;}
+    margin-bottom: 40px;
+    color: #333;
+  }
+  
+  /* Additional global styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
