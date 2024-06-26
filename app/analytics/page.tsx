@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Bar, Pie, Scatter } from 'react-chartjs-2'; // Import necessary chart types
+import { Bar, Pie, Line } from 'react-chartjs-2'; // Import necessary chart types
 import 'chart.js/auto';
 import styles from './Analytics.module.css'; // Ensure this CSS module exists
 
@@ -29,7 +29,7 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
     <div className={styles.chartWrapper}>
       {/* Choose appropriate chart type based on the data */}
       {chartData.type === 'bar' && <Bar data={chartData.data} options={{ maintainAspectRatio: false }} />}
-      {chartData.type === 'scatter' && <Scatter data={chartData.data} options={{ maintainAspectRatio: false }} />}
+      {chartData.type === 'scatter' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
       {chartData.type === 'pie' && <Pie data={chartData.data} options={{ maintainAspectRatio: false }} />}
     </div>
   </div>
@@ -158,7 +158,7 @@ const GraphPage: React.FC = () => {
   };
 
   const correlationChartData = {
-    type: 'scatter',
+    type: 'line',
     data: {
       datasets: [{
         label: 'Correlation between Eating Habits and Health Rating',
