@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Line, Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
-import styles from './Graph.module.css'; // Import the CSS module
+import styles from './Analytics.module.css'; // Import the CSS module
 import Link from 'next/link';
 
 // Define the survey data interface
