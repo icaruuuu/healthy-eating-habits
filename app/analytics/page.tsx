@@ -58,6 +58,7 @@ const GraphPage: React.FC = () => {
     const dietDistribution = countResponses(data.map(entry => entry.diet));
     const healthRatingCorrelation = data.map(entry => ({ x: entry.fruits_vegetables, y: entry.health_rating }));
     const gpaByDiet = calculateAverageGpaByDiet(data);
+    const gpaDistribution = calculateGpaDistribution(data);
 
     return {
       genderCount,
@@ -67,6 +68,7 @@ const GraphPage: React.FC = () => {
       dietDistribution,
       healthRatingCorrelation,
       gpaByDiet,
+      gpaDistribution,
     };
   };
 
@@ -99,7 +101,21 @@ const GraphPage: React.FC = () => {
     return averageGpaByDiet;
   };
 
-  const { genderCount, courseCount, fruitsVegetablesCount, fastFoodCount, dietDistribution, healthRatingCorrelation, gpaByDiet } = processData(surveyData);
+  const calculateGpaDistribution = (data: HealthSurvey[]) => {
+    const gpaData: { [key: string]: number } = {};
+    data.forEach(entry => {
+      const gpa = parseFloat(entry.gpa);
+      if (gpaData[gpa]) {
+        gpaData[gpa]++;
+      } else {
+        gpaData[gpa] = 1;
+      }
+    });
+
+    return gpaData;
+  };
+
+  const { genderCount, courseCount, fruitsVegetablesCount, fastFoodCount, dietDistribution, healthRatingCorrelation, gpaByDiet, gpaDistribution } = processData(surveyData);
 
   // Configure chart data
   const fruitVegetableChartData = {
@@ -213,7 +229,7 @@ const GraphPage: React.FC = () => {
   };
 
   const genderChartData = {
-    type: 'pie',
+    type: 'bar',
     data: {
       labels: Object.keys(genderCount),
       datasets: [
@@ -241,7 +257,7 @@ const GraphPage: React.FC = () => {
   };
 
   const courseChartData = {
-    type: 'bar', // Change to bar chart
+    type: 'bar',
     data: {
       labels: Object.keys(courseCount),
       datasets: [
@@ -271,15 +287,15 @@ const GraphPage: React.FC = () => {
   return (
     <div className={styles.pageBackground}>
       <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
-        <div className={styles.container}>
-            <GraphCard title="Gender Distribution" chartData={genderChartData} />
-            <GraphCard title="Course Distribution" chartData={courseChartData} />
-            <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
-            <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
-            <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
-            <GraphCard title="Correlation: Fruits/Vegetables vs Health Rating" chartData={correlationChartData} />
-            <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
-        </div>
+      <div className={styles.cardContainer}>
+        <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
+        <GraphCard title="Gender Distribution" chartData={genderChartData} />
+        <GraphCard title="Course Distribution" chartData={courseChartData} />
+        <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
+        <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
+        <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
+        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} />
+      </div>
     </div>
   );
 };
