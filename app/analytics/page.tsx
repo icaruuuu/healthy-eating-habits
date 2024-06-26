@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Line } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css';
 import Link from 'next/link';
-
+import { ChartOptions } from 'chart.js';
 
 interface FormData {
   name: string;
@@ -29,7 +29,7 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
   <div className={styles.card}>
     <h2>{title}</h2>
     <div className={styles.chartWrapper}>
-      <Line data={chartData} options={{ maintainAspectRatio: false }} />
+      <Pie data={chartData} options={{ maintainAspectRatio: false }} />
     </div>
   </div>
 );
@@ -40,21 +40,34 @@ const ResponseChart: React.FC<{ question: string, responses: number[] }> = ({ qu
     datasets: [{
       label: question,
       data: responses,
-      backgroundColor: 'rgba(54, 162, 235, 0.6)',
-      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+      ],
       borderWidth: 1
     }]
   };
 
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true
+  const options: ChartOptions<'pie'> = {
+    plugins: {
+      legend: {
+        position: 'top', // Adjust position as needed
+      },
+      tooltip: {
+        callbacks: {
+          label: function(tooltipItem) {
+            const value = typeof tooltipItem.raw === 'number' ? tooltipItem.raw.toFixed(2) : tooltipItem.raw;
+            return `${tooltipItem.label}: ${value}`;
+          }
+        }
       }
     }
   };
 
-  return <Line data={data} options={options} />;
+  return <Pie data={data} options={options} />;
 };
 
 const GraphPage: React.FC = () => {
@@ -103,9 +116,14 @@ const GraphPage: React.FC = () => {
     datasets: [{
       label: 'Average GPA by Diet',
       data: processData(surveyData).dietData,
-      fill: false,
-      borderColor: 'rgba(75, 192, 192, 1)',
-      tension: 0.1
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+      ],
+      borderWidth: 1
     }]
   };
 
@@ -114,9 +132,13 @@ const GraphPage: React.FC = () => {
     datasets: [{
       label: 'Average GPA by Study Hours',
       data: processData(surveyData).studyHoursData,
-      fill: false,
-      borderColor: 'rgba(153, 102, 255, 1)',
-      tension: 0.1
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+      ],
+      borderWidth: 1
     }]
   };
 
@@ -125,9 +147,14 @@ const GraphPage: React.FC = () => {
     datasets: [{
       label: 'Average GPA by Health Rating',
       data: processData(surveyData).healthRatingData,
-      fill: false,
-      borderColor: 'rgba(255, 159, 64, 1)',
-      tension: 0.1
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+      ],
+      borderWidth: 1
     }]
   };
 
@@ -138,7 +165,7 @@ const GraphPage: React.FC = () => {
       {/* Render individual response charts */}
       {surveyData.map((response, index) => (
         <div key={index}>
-          <h3>Response Charts for Question {index + 1}</h3>
+          <h3>Response Chart for Question {index + 1}</h3>
           <ResponseChart question={`Question ${index + 1}`} responses={[parseFloat(response.gpa)]} />
           {/* Replace `parseFloat(response.gpa)` with appropriate response data */}
         </div>

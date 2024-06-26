@@ -20,29 +20,29 @@
     color: #333;
     font-weight: bold;
   }
-  
-  .title {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .cardContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
   .card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    margin-bottom: 20px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .chartWrapper {
-    height: 400px; /* Adjust height as needed */
+    text-align: center; /* Center align the charts */
+    margin-top: 20px;
+  }
+  
+  .title {
+    text-align: center; /* Center align the title */
+  }
+  
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center align the card container */
   }
   
   .label {
@@ -82,4 +82,7 @@
     max-width: 600px;
     margin: 0 auto;
   }
+  /* Analytics.module.css */
+
+
   
