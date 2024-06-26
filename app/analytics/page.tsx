@@ -3,8 +3,8 @@
 // SurveyAnalytics.tsx
 
 import React, { useState, useEffect } from 'react';
-import { Bar, Doughnut } from 'react-chartjs-2'; // Assuming you may need different chart types
-import styles from './AnalyticsPage.module.css'; // Import styles if needed
+import { Bar, Doughnut } from 'react-chartjs-2'; 
+import styles from './AnalyticsPage.module.css'; 
 
 const Analytics: React.FC = () => {
   const [surveyData, setSurveyData] = useState<any[]>([]);
