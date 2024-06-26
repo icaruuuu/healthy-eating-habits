@@ -3,8 +3,8 @@
 // SurveyAnalytics.tsx
 
 import React, { useState, useEffect } from 'react';
-import { Bar, Doughnut } from 'react-chartjs-2';
-import styles from './AnalyticsPage.module.css'; // Assuming you may need different chart types
+import { Bar, Doughnut } from 'react-chartjs-2'; // Assuming you may need different chart types
+import styles from './AnalyticsPage.module.css'; // Import styles if needed
 
 const Analytics: React.FC = () => {
   const [surveyData, setSurveyData] = useState<any[]>([]);
@@ -102,7 +102,7 @@ const Analytics: React.FC = () => {
   const prepareFruitsVegetablesChartData = () => {
     const servingsData = surveyData.map((survey) => parseInt(survey.fruits_vegetables));
 
-    const averageServings = servingsData.reduce((acc, servings) => acc + servings, 0) / (servingsData.length || 1);
+    const averageServings = servingsData.reduce((acc, servings) => acc + servings, 0) / servingsData.length;
 
     return {
       labels: ['Average Servings'],
