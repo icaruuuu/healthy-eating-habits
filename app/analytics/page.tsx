@@ -288,7 +288,7 @@ const GraphPage: React.FC = () => {
         <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} counts={fruitsVegetablesCount} />
         <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} counts={fastFoodCount} />
         <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} counts={dietDistribution} />
-        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} counts={undefined} />
+        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} counts={fruitsVegetablesCount}  />
         <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} counts={gpaByDiet} />
       </div>
     </div>
