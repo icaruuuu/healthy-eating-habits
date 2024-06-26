@@ -1,88 +1,31 @@
-/* Graph.module.css */
+/* Analytics.module.css */
 
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .topnav {
-    background-color: #f2f2f2;
-    overflow: hidden;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .topnav a {
-    margin-right: 10px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
-  .card {
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .chartWrapper {
-    text-align: center; /* Center align the charts */
-    margin-top: 20px;
-  }
-  
-  .title {
-    text-align: center; /* Center align the title */
-  }
-  
-  .cardContainer {
+.cardContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Center align the card container */
-  }
-  
-  .label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .input,
-  .select {
+    justify-content: center;
+    padding: 20px;
+  }  
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    max-width: 500px;
+    padding: 20px;
+    margin: 20px;
   }
   
-  .button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
+.chartWrapper {
+    position: relative;
+    height: 300px; /* Adjust height as needed */
+    width: 100%;
   }
   
-  .button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
-  .formContainer {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  /* Analytics.module.css */
-
-
-  
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #333;}

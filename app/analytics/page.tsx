@@ -1,4 +1,3 @@
-// Import necessary modules and components
 "use client"
 
 import React, { useEffect, useState } from 'react';
@@ -27,12 +26,11 @@ interface SurveyData {
 }
 
 // Component for rendering each graph card
-const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartData }) => (
+const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie' }> = ({ title, chartData, type = 'Line' }) => (
   <div className={styles.card}>
     <h2>{title}</h2>
     <div className={styles.chartWrapper}>
-      {/* Using Line chart for some data, Pie chart for others */}
-      {title === 'Total Responses by Gender' ? (
+      {type === 'Pie' ? (
         <Pie data={chartData} options={{ maintainAspectRatio: false }} />
       ) : (
         <Line data={chartData} options={{ maintainAspectRatio: false }} />
@@ -124,10 +122,32 @@ const GraphPage: React.FC = () => {
     };
   };
 
-  // Prepare data for different pie charts
+  // Function to process data for a line chart of stress levels over age
+  const processStressData = (data: SurveyData[]) => {
+    const ages = Array.from(new Set(data.map(d => d.age))).sort((a, b) => a - b);
+    const stressLevels = ages.map(age => {
+      const ageData = data.filter(d => d.age === age);
+      const averageStress = ageData.reduce((acc, cur) => acc + cur.stress_level, 0) / ageData.length;
+      return averageStress;
+    });
+
+    return {
+      labels: ages,
+      datasets: [{
+        label: 'Average Stress Level by Age',
+        data: stressLevels,
+        fill: false,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        tension: 0.1
+      }]
+    };
+  };
+
+  // Prepare data for different charts
   const genderChartData = processGenderData(surveyData);
   const dietChartData = processDietData(surveyData);
   const gpaChartData = processGpaData(surveyData);
+  const stressChartData = processStressData(surveyData);
 
   return (
     <div>
@@ -136,9 +156,10 @@ const GraphPage: React.FC = () => {
       {/* Graph cards container */}
       <div className={styles.cardContainer}>
         {/* Pie charts for gender, diet, and GPA */}
-        <GraphCard title="Total Responses by Gender" chartData={genderChartData} />
-        <GraphCard title="Distribution of Diets" chartData={dietChartData} />
-        <GraphCard title="Distribution of GPAs" chartData={gpaChartData} />
+        <GraphCard title="Total Responses by Gender" chartData={genderChartData} type="Pie" />
+        <GraphCard title="Distribution of Diets" chartData={dietChartData} type="Pie" />
+        <GraphCard title="Distribution of GPAs" chartData={gpaChartData} type="Pie" />
+        <GraphCard title="Average Stress Level by Age" chartData={stressChartData} type="Line" />
         {/* Additional charts as needed */}
       </div>
     </div>

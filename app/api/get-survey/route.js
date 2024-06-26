@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
-import  connectMongo from '../../../lib/mongodb'
-import HealthSurvey from '../../../models/HealthSurvey'
+import connectMongo from '../../../lib/mongodb';
+import HealthSurvey from '../../../models/HealthSurvey';
 
 export const revalidate = 0;
+
 export async function GET() {
   try {
     await connectMongo(); // Ensure the database is connected
