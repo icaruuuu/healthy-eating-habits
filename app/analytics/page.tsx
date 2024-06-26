@@ -39,7 +39,7 @@ const GraphPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/get-survey-data');
+        const response = await axios.get('/api/get-survey');
         console.log("Survey data received:", response.data);
         setSurveyData(response.data);
       } catch (error) {
