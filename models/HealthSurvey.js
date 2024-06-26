@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const healthSurveySchema = new mongoose.Schema({
+const responsesSchema = new mongoose.Schema({
     name: String,
     age: Number,
     gender: String,
@@ -17,4 +17,4 @@ const healthSurveySchema = new mongoose.Schema({
     class_attendance: Number,
 });
 
-export default mongoose.models.HealthSurvey || mongoose.model('HealthSurvey', healthSurveySchema);
+export default mongoose.models.HealthSurvey || mongoose.model('Responses', responsesSchema );
