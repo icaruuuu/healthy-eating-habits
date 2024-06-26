@@ -1,6 +1,6 @@
 /* Analytics.module.css */
 .pageBackground {
-    background-color: #b5e9bb; /* Light green background color */
+    background-color: #b3f3d8; /* Light green background color */
   }
   
   .title {
@@ -20,7 +20,7 @@
   }
   
   .card {
-    background-color: #b5e9bb;
+    background-color: #d7e0d8;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
