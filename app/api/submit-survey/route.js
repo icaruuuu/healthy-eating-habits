@@ -7,7 +7,7 @@ export async function POST(request) {
     try {
       await connectMongo();
       const data = await request.json();
-      const survey = new responses(data);
+      const survey = new HealthSurvey(data);
       await survey.save();
       return NextResponse.json({ message: 'Survey data saved successfully' }, { status: 200 });
     } catch (error) {
@@ -19,7 +19,7 @@ export async function POST(request) {
   export const GET = async () => {
     try {
       await connectMongo();
-      const surveys = await responses.find({}); // Retrieve all surveys
+      const surveys = await HealthSurvey.find({}); // Retrieve all surveys
       return NextResponse.json({ surveys }, { status: 200 });
     } catch (error) {
       return NextResponse.json({ error: 'Error fetching survey data' }, { status: 500 });

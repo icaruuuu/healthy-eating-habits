@@ -151,8 +151,12 @@ const SurveyPage: React.FC = () => {
                 <label htmlFor="study_hours" className={styles.label}>Average daily study hours:</label>
                 <input type="number" id="study_hours" name="study_hours" value={formData.study_hours} onChange={handleChange} required className={styles.input} />
 
-                <label htmlFor="extracurricular" className={styles.label}>Involvement in extracurricular activities:</label>
-                <input type="text" id="extracurricular" name="extracurricular" value={formData.extracurricular} onChange={handleChange} required className={styles.input} />
+                <label htmlFor="extracurricular" className={styles.label}>Are you involved in extracurricular activities?</label>
+                <select id="extracurricular" name="extracurricular" value={formData.extracurricular} onChange={handleChange} required className={styles.select}>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
 
                 <label htmlFor="sleep_hours" className={styles.label}>Average daily sleep hours:</label>
                 <input type="number" id="sleep_hours" name="sleep_hours" value={formData.sleep_hours} onChange={handleChange} required className={styles.input} />
