@@ -160,14 +160,23 @@ const GraphPage: React.FC = () => {
   const correlationChartData = {
     type: 'line',
     data: {
-      labels: healthRatingCorrelation.map((_, index) => `Entry ${index + 1}`),
-      datasets: [{
-        label: 'Correlation between Eating Habits and Health Rating',
-        data: healthRatingCorrelation,
-        fill: false,
-        borderColor: 'rgba(255, 159, 64, 1)',
-        tension: 0.1,
-      }],
+      labels: surveyData.map((_, index) => `Entry ${index + 1}`),
+      datasets: [
+        {
+          label: 'Fruits and Vegetables Consumption',
+          data: surveyData.map(entry => entry.fruits_vegetables),
+          fill: false,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          tension: 0.1,
+        },
+        {
+          label: 'Health Rating',
+          data: surveyData.map(entry => entry.health_rating),
+          fill: false,
+          borderColor: 'rgba(54, 162, 235, 1)',
+          tension: 0.1,
+        },
+      ],
     },
     options: {
       scales: {
@@ -176,19 +185,20 @@ const GraphPage: React.FC = () => {
           position: 'bottom',
           title: {
             display: true,
-            text: 'Fruits and Vegetables Consumption',
+            text: 'Response',
           },
         },
         y: {
           type: 'linear',
           title: {
             display: true,
-            text: 'Health Rating',
+            text: 'Value',
           },
         },
       },
     },
   };
+  
 
   const gpaByDietChartData = {
     type: 'bar',
