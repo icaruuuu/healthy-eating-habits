@@ -138,17 +138,17 @@ const GraphPage: React.FC = () => {
     };
   };
 
-  // Process data for GPA by diet chart
-  const processGpaByDietData = (data: SurveyData[]) => {
+// Process data for GPA by diet chart
+const processGpaByDietData = (data: SurveyData[]) => {
     const diets = ["None", "Vegetarian", "Vegan", "Keto", "Other"];
     const dietGpas = diets.map(diet => {
-      const gpas = data.filter(d => d.diet === diet).map(d => parseFloat(d.gpa));
-      const averageGpa = gpas.reduce((acc, cur) => acc + cur, 0) / gpas.length || 0;
+      const gpas = data.filter(d => d.diet === diet && d.gpa !== 'N/A').map(d => parseFloat(d.gpa));
+      const averageGpa = gpas.length > 0 ? gpas.reduce((acc, cur) => acc + cur, 0) / gpas.length : 0;
       return averageGpa;
     });
-
+  
     console.log('GPA by diet data:', dietGpas);
-
+  
     return {
       labels: diets,
       datasets: [{
@@ -164,6 +164,7 @@ const GraphPage: React.FC = () => {
       }],
     };
   };
+  
 
   // Generate chart data for each graph
   const healthyEatingData = processHealthyEatingData(surveyData);
