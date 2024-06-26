@@ -1,7 +1,8 @@
-"use client"
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css'; // Ensure this CSS module exists
 import Link from 'next/link';
@@ -27,8 +28,7 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
   <div className={styles.card}>
     <h2>{title}</h2>
     <div className={styles.chartWrapper}>
-      {chartData.type === 'line' && <Line data={chartData.data} options={chartData.options} />}
-      {chartData.type === 'bar' && <Bar data={chartData.data} options={chartData.options} />}
+      <Line data={chartData} options={{ maintainAspectRatio: false }} />
     </div>
   </div>
 );
@@ -39,7 +39,7 @@ const GraphPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/get-health-survey'); // Adjust API endpoint
+        const response = await axios.get('/api/get-survey');
         console.log("Health survey data received:", response.data);
         setSurveyData(response.data);
       } catch (error) {
@@ -98,172 +98,70 @@ const GraphPage: React.FC = () => {
   const { fruitVegetableData, fastFoodData, dietCounts, correlationData, averageGpaByDiet } = processData(surveyData);
 
   const fruitVegetableChartData = {
-    type: 'line',
-    data: {
-      labels: Array.from(Array(fruitVegetableData.length).keys()).map(String),
-      datasets: [{
-        label: 'Fruits and Vegetables Consumption',
-        data: fruitVegetableData,
-        fill: false,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        tension: 0.1,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Servings per day',
-          },
-        },
-        x: {
-          title: {
-            display: true,
-            text: 'Survey Entry',
-          },
-        },
-      },
-    },
+    labels: Array.from(Array(fruitVegetableData.length).keys()).map(String),
+    datasets: [{
+      label: 'Fruits and Vegetables Consumption',
+      data: fruitVegetableData,
+      fill: false,
+      borderColor: 'rgba(75, 192, 192, 1)',
+      tension: 0.1,
+    }]
   };
 
   const fastFoodChartData = {
-    type: 'line',
-    data: {
-      labels: Array.from(Array(fastFoodData.length).keys()).map(String),
-      datasets: [{
-        label: 'Fast Food Consumption Frequency',
-        data: fastFoodData,
-        fill: false,
-        borderColor: 'rgba(153, 102, 255, 1)',
-        tension: 0.1,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Times per week',
-          },
-        },
-        x: {
-          title: {
-            display: true,
-            text: 'Survey Entry',
-          },
-        },
-      },
-    },
+    labels: Array.from(Array(fastFoodData.length).keys()).map(String),
+    datasets: [{
+      label: 'Fast Food Consumption Frequency',
+      data: fastFoodData,
+      fill: false,
+      borderColor: 'rgba(153, 102, 255, 1)',
+      tension: 0.1,
+    }]
   };
 
   const dietDistributionChartData = {
-    type: 'bar',
-    data: {
-      labels: Object.keys(dietCounts),
-      datasets: [{
-        label: 'Diet Distribution',
-        data: Object.values(dietCounts),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-        ],
-        borderWidth: 1,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      scales: {
-        x: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Number of respondents',
-          },
-        },
-        y: {
-          title: {
-            display: true,
-            text: 'Diet Type',
-          },
-        },
-      },
-    },
+    labels: Object.keys(dietCounts),
+    datasets: [{
+      label: 'Diet Distribution',
+      data: Object.values(dietCounts),
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+      ],
+      borderWidth: 1,
+    }]
   };
 
   const correlationChartData = {
-    type: 'scatter',
-    data: {
-      datasets: [{
-        label: 'Correlation between Eating Habits and Health Rating',
-        data: correlationData,
-        fill: false,
-        borderColor: 'rgba(255, 159, 64, 1)',
-        pointRadius: 6,
-        pointHoverRadius: 8,
-      }]
-    },
-    options: {
-      scales: {
-        x: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Fruits and Vegetables Consumption',
-          },
-        },
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Health Rating',
-          },
-        },
-      },
-    },
+    labels: correlationData.map((_, index) => `Entry ${index + 1}`),
+    datasets: [{
+      label: 'Correlation between Eating Habits and Health Rating',
+      data: correlationData,
+      fill: false,
+      borderColor: 'rgba(255, 159, 64, 1)',
+      tension: 0.1,
+    }]
   };
 
   const gpaByDietChartData = {
-    type: 'bar',
-    data: {
-      labels: averageGpaByDiet.map(item => item.diet),
-      datasets: [{
-        label: 'Average GPA by Diet',
-        data: averageGpaByDiet.map(item => item.averageGpa.toFixed(2)), // Rounded to 2 decimal places
-        backgroundColor: 'rgba(54, 162, 235, 0.8)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Average GPA',
-          },
-        },
-        x: {
-          title: {
-            display: true,
-            text: 'Diet Type',
-          },
-        },
-      },
-    },
+    labels: averageGpaByDiet.map(item => item.diet),
+    datasets: [{
+      label: 'Average GPA by Diet',
+      data: averageGpaByDiet.map(item => item.averageGpa),
+      fill: false,
+      borderColor: 'rgba(54, 162, 235, 1)',
+      tension: 0.1,
+    }]
   };
 
   return (
@@ -281,3 +179,4 @@ const GraphPage: React.FC = () => {
 };
 
 export default GraphPage;
+
