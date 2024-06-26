@@ -29,7 +29,7 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
     <div className={styles.chartWrapper}>
       {/* Choose appropriate chart type based on the data */}
       {chartData.type === 'bar' && <Bar data={chartData.data} options={{ maintainAspectRatio: false }} />}
-      {chartData.type === 'scatter' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
+      {chartData.type === 'line' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
       {chartData.type === 'pie' && <Pie data={chartData.data} options={{ maintainAspectRatio: false }} />}
     </div>
   </div>
@@ -160,12 +160,13 @@ const GraphPage: React.FC = () => {
   const correlationChartData = {
     type: 'line',
     data: {
+      labels: healthRatingCorrelation.map((_, index) => `Entry ${index + 1}`),
       datasets: [{
         label: 'Correlation between Eating Habits and Health Rating',
         data: healthRatingCorrelation,
-        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+        fill: false,
         borderColor: 'rgba(255, 159, 64, 1)',
-        borderWidth: 1,
+        tension: 0.1,
       }],
     },
     options: {
