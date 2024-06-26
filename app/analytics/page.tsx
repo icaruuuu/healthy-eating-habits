@@ -63,7 +63,7 @@ const GraphPage: React.FC = () => {
 
   // Function to process data for gender distribution pie chart
   const processGenderData = (data: SurveyData[]) => {
-    const genders = ["Male", "Female", "Prefer not to say", "Other"];
+    const genders = ["Male", "Female", "Other", "Prefer not to say"];
     const genderCounts = genders.map(gender => {
       const count = data.filter(d => d.gender === gender).length;
       return count;
