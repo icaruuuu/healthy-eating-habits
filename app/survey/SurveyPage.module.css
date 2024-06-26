@@ -4,7 +4,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 100%;
     max-width: 800px;
-    background-color: #fff;
+    background-color: #f0fdf4; /* Light green background */
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -14,7 +14,7 @@
 
 .title {
     text-align: center;
-    color: #333;
+    color: #1b5e20; /* Dark green color */
     margin-bottom: 20px;
     font-size: 32px;
 }
@@ -29,7 +29,7 @@
     margin-bottom: 8px;
     display: block;
     font-size: 18px;
-    color: #000;
+    color: #1b5e20; /* Dark green color */
 }
 
 .input,
@@ -37,29 +37,30 @@
     width: calc(100% - 22px);
     padding: 12px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #4caf50; /* Green border */
     border-radius: 4px;
     font-size: 16px;
     transition: border-color 0.3s ease;
     box-sizing: border-box;
-    color: #000;
+    color: #1b5e20; /* Dark green color */
+    background-color: #e8f5e9; /* Light green background */
 }
 
 .select {
     appearance: none;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23333" d="M256 352L32 128h448z"/></svg>') no-repeat right 12px center/10px 10px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%231b5e20" d="M256 352L32 128h448z"/></svg>') no-repeat right 12px center/10px 10px; /* Dark green arrow */
     padding-right: 30px;
-    color: #000;
+    color: #1b5e20; /* Dark green color */
 }
 
 .input:focus,
 .select:focus {
     outline: none;
-    border-color: #4CAF50;
+    border-color: #1b5e20; /* Dark green color on focus */
 }
 
 .button {
-    background-color: #4CAF50;
+    background-color: #2e7d32; /* Dark green color */
     color: white;
     padding: 14px 20px;
     border: none;
@@ -72,12 +73,12 @@
 }
 
 .button:disabled {
-    background-color: #aaa;
+    background-color: #a5d6a7; /* Light green for disabled button */
     cursor: not-allowed;
 }
 
 .button:hover:enabled {
-    background-color: #45a049;
+    background-color: #1b5e20; /* Dark green on hover */
 }
 
 /* Ensuring consistency across all form labels */
@@ -86,5 +87,5 @@
     margin-bottom: 8px;
     display: block;
     font-size: 18px;
-    color: #000;
+    color: #1b5e20; /* Dark green color */
 }
