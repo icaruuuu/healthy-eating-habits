@@ -1,6 +1,4 @@
-// SurveyAnalytics.tsx
-"use client"
-// SurveyAnalytics.tsx
+
 
 import React, { useState, useEffect } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2'; 
@@ -12,20 +10,20 @@ const Analytics: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/submit-survey');
-        if (response.ok) {
-          const data = await response.json();
-          setSurveyData(data.surveys);
-        } else {
+        const response = await fetch('/api/get-surveys');
+        if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
+        const data = await response.json();
+        setSurveyData(data.surveys);
       } catch (error) {
         console.error('Error fetching survey data:', error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   const prepareHealthRatingsChartData = () => {
     const healthRatings = surveyData.map((survey) => survey.health_rating);
