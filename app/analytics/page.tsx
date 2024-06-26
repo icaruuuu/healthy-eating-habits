@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-import styles from './Graph.module.css'; // Ensure this CSS module exists
+import styles from './Analytics.module.css'; // Ensure this CSS module exists
 import Link from 'next/link';
 
 interface HealthSurvey {
