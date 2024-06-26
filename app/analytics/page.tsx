@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Line, Pie } from 'react-chartjs-2';
+import { Line, Pie, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css'; // Import the CSS module
 import Link from 'next/link';
@@ -26,7 +26,7 @@ interface SurveyData {
 }
 
 // Component for rendering each graph card
-const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie' }> = ({ title, chartData, type = 'Line' }) => {
+const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie' | 'Bar' }> = ({ title, chartData, type = 'Line' }) => {
   console.log(`Rendering ${title} with data:`, chartData); // Add console log for debugging
 
   return (
@@ -35,6 +35,8 @@ const GraphCard: React.FC<{ title: string, chartData: any, type?: 'Line' | 'Pie'
       <div className={styles.chartWrapper}>
         {type === 'Pie' ? (
           <Pie data={chartData} options={{ maintainAspectRatio: false }} />
+        ) : type === 'Bar' ? (
+          <Bar data={chartData} options={{ maintainAspectRatio: false }} />
         ) : (
           <Line data={chartData} options={{ maintainAspectRatio: false }} />
         )}
@@ -61,29 +63,39 @@ const GraphPage: React.FC = () => {
     fetchData();
   }, []);
 
-  // Function to process data for gender distribution pie chart
-  const processGenderData = (data: SurveyData[]) => {
-    const genders = ["Male", "Female", "Other", "Prefer not to say"];
-    const genderCounts = genders.map(gender => {
-      const count = data.filter(d => d.gender === gender).length;
-      return count;
-    });
+  // Function to process data for descriptive statistics on healthy eating habits
+  const processHealthyEatingData = (data: SurveyData[]) => {
+    const labels = ["Fruits & Vegetables Consumption", "Fast Food Consumption"];
+    const fruitsVegetables = data.reduce((acc, cur) => acc + cur.fruits_vegetables, 0) / data.length;
+    const fastFood = data.reduce((acc, cur) => acc + cur.fast_food, 0) / data.length;
 
     return {
-      labels: genders,
+      labels,
       datasets: [{
-        data: genderCounts,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 205, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-        ],
+        data: [fruitsVegetables, fastFood],
+        backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
       }],
     };
   };
 
-  // Function to process data for diet distribution pie chart
+  // Function to process data for frequency distribution of fast food consumption
+  const processFastFoodData = (data: SurveyData[]) => {
+    const fastFoodLevels = [0, 1, 2, 3, 4, 5];
+    const fastFoodCounts = fastFoodLevels.map(level => {
+      const count = data.filter(d => d.fast_food === level).length;
+      return count;
+    });
+
+    return {
+      labels: fastFoodLevels,
+      datasets: [{
+        data: fastFoodCounts,
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      }],
+    };
+  };
+
+  // Function to process data for diet distribution
   const processDietData = (data: SurveyData[]) => {
     const diets = ["None", "Vegetarian", "Vegan", "Keto", "Other"];
     const dietCounts = diets.map(diet => {
@@ -106,61 +118,64 @@ const GraphPage: React.FC = () => {
     };
   };
 
-  // Function to process data for GPA distribution pie chart
-  const processGpaData = (data: SurveyData[]) => {
-    const gpas = ["1.00", "1.25", "1.50", "1.75", "2.00", "2.25", "2.50", "2.75", "3.00", "4", "5"];
-    const gpaCounts = gpas.map(gpa => {
-      const count = data.filter(d => d.gpa === gpa).length;
-      return count;
+  // Function to process data for correlation between eating habits and health rating
+  const processCorrelationData = (data: SurveyData[]) => {
+    const labels = data.map(d => d.name);
+    const fruitsVegetables = data.map(d => d.fruits_vegetables);
+    const healthRatings = data.map(d => d.health_rating);
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: 'Fruits & Vegetables Consumption',
+          data: fruitsVegetables,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          type: 'line',
+        },
+        {
+          label: 'Health Rating',
+          data: healthRatings,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(255, 99, 132, 0.6)',
+          type: 'line',
+        }
+      ],
+    };
+  };
+
+  // Function to process data for comparative analysis of GPA based on different dietary habits
+  const processGpaByDietData = (data: SurveyData[]) => {
+    const diets = ["None", "Vegetarian", "Vegan", "Keto", "Other"];
+    const dietGpas = diets.map(diet => {
+      const gpas = data.filter(d => d.diet === diet).map(d => parseFloat(d.gpa));
+      const averageGpa = gpas.reduce((acc, cur) => acc + cur, 0) / gpas.length || 0;
+      return averageGpa;
     });
 
     return {
-      labels: gpas,
+      labels: diets,
       datasets: [{
-        data: gpaCounts,
+        label: 'Average GPA',
+        data: dietGpas,
         backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
           'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 205, 86, 0.6)',          
-          'rgba(255, 2, 2, 0.8)',
-          'rgba(157, 224, 197, 0.8)',
-          'rgba(28, 113, 15, 0.8)',
-          'rgba(11, 99, 150, 0.6)',
-          'rgba(68, 162, 235, 0.6)',
-          'rgba(120, 50, 86, 0.6)',
-          'rgba(250, 80, 132, 0.6)',
-          'rgba(70, 162, 235, 0.6)',
+          'rgba(255, 205, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(175, 252, 192, 0.6)',
         ],
       }],
     };
   };
 
-  // Function to process data for a line chart of stress levels over age
-  const processStressData = (data: SurveyData[]) => {
-    const ages = Array.from(new Set(data.map(d => d.age))).sort((a, b) => a - b);
-    const stressLevels = ages.map(age => {
-      const ageData = data.filter(d => d.age === age);
-      const averageStress = ageData.reduce((acc, cur) => acc + cur.stress_level, 0) / ageData.length;
-      return averageStress;
-    });
-
-    return {
-      labels: ages,
-      datasets: [{
-        label: 'Average Stress Level by Age',
-        data: stressLevels,
-        fill: false,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        tension: 0.1
-      }]
-    };
-  };
-
   // Prepare data for different charts
-  const genderChartData = processGenderData(surveyData);
-  const dietChartData = processDietData(surveyData);
-  const gpaChartData = processGpaData(surveyData);
-  const stressChartData = processStressData(surveyData);
+  const healthyEatingData = processHealthyEatingData(surveyData);
+  const fastFoodData = processFastFoodData(surveyData);
+  const dietData = processDietData(surveyData);
+  const correlationData = processCorrelationData(surveyData);
+  const gpaByDietData = processGpaByDietData(surveyData);
 
   return (
     <div>
@@ -168,12 +183,12 @@ const GraphPage: React.FC = () => {
       <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
       {/* Graph cards container */}
       <div className={styles.cardContainer}>
-        {/* Pie charts for gender, diet, and GPA */}
-        <GraphCard title="Total Responses by Gender" chartData={genderChartData} type="Pie" />
-        <GraphCard title="Distribution of Diets" chartData={dietChartData} type="Pie" />
-        <GraphCard title="Distribution of GPAs" chartData={gpaChartData} type="Pie" />
-        <GraphCard title="Average Stress Level by Age" chartData={stressChartData} type="Line" />
-        {/* Additional charts as needed */}
+        {/* Charts for descriptive statistics, frequency distribution, and comparative analysis */}
+        <GraphCard title="Descriptive Statistics on Healthy Eating Habits" chartData={healthyEatingData} type="Pie" />
+        <GraphCard title="Frequency Distribution of Fast Food Consumption" chartData={fastFoodData} type="Bar" />
+        <GraphCard title="Analysis of the Prevalence of Different Diets" chartData={dietData} type="Pie" />
+        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationData} type="Line" />
+        <GraphCard title="Comparative Analysis of GPA based on Different Dietary Habits" chartData={gpaByDietData} type="Bar" />
       </div>
     </div>
   );

@@ -1,42 +1,58 @@
-/* Overall container for the page */
-.cardContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+/* Analytics.module.css */
+
+:root {
+    --primary-color: #4caf50; /* Green */
+    --secondary-color: #388e3c; /* Darker Green */
+    --background-color: #f0f4c3; /* Light Green Background */
+    --text-color: #2e7d32; /* Text Green */
+    --card-background-color: #e8f5e9; /* Lighter Green for Cards */
+    --border-color: #c8e6c9; /* Border Color */
   }
   
-  /* Individual card container */
-  .card {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 100%;
-    max-width: 500px;
-    margin: 10px;
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
   }
   
-  /* Card title */
-  .card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  /* Chart wrapper to ensure proper sizing and responsiveness */
-  .chartWrapper {
-    position: relative;
-    height: 300px; /* Adjust this value as needed */
-    width: 100%;
-  }
-  
-  /* Title for the page */
   .title {
-    font-size: 2rem;
+    font-size: 2em;
+    font-weight: bold;
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 40px;
-    color: #333;
+    color: var(--primary-color);
   }
+  
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: var(--card-background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+  }
+  
+  .card h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+  }
+  
+  .chartWrapper {
+    position: relative;
+    height: 300px;
+    width: 100%;
+  }
+  
+  .chartWrapper canvas {
+    border-radius: 10px;
+  }
+  
