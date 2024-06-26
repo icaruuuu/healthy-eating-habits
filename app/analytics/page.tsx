@@ -214,18 +214,19 @@ const GraphPage: React.FC = () => {
     },
   };
 
-  return (
-    <div>
-      <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
-      <div className={styles.cardContainer}>
-        <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
-        <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
-        <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
-        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} />
-        <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
-      </div>
-    </div>
-  );
+
+    return (
+        <div className={styles.pageBackground}>
+        <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
+        <div className={styles.cardContainer}>
+            <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
+            <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
+            <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
+            <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} />
+            <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
+        </div>
+        </div>
+     );
 };
 
 export default GraphPage;
