@@ -228,7 +228,7 @@ const GraphPage: React.FC = () => {
   };
 
   const genderChartData = {
-    type: 'bar',
+    type: 'pie',
     data: {
       labels: Object.keys(genderCount),
       datasets: [
