@@ -14,7 +14,7 @@ export default function Home() {
             Take the Survey
           </a>
         </Link>
-        <Link href="/analytics" passHref>
+        <Link href="/analytics" >
           <a className="block mt-4 text-center text-blue-500 hover:underline">
             View Analytics
           </a>

@@ -3,30 +3,42 @@
 
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import axios from 'axios';
-import { getData} from '../../actions/get'
+import { getData } from '../../actions/get';
 import styles from './SurveyPage.module.css';
 
 interface FormData {
     name: string;
     age: string;
+    course: string;
     gender: string;
     fruits_vegetables: string;
     fast_food: string;
     diet: string;
     health_rating: string;
     gpa: string;
+    study_hours: string;
+    extracurricular: string;
+    sleep_hours: string;
+    stress_level: string;
+    class_attendance: string;
 }
 
 const SurveyPage: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
         name: '',
         age: '',
+        course: '',
         gender: '',
         fruits_vegetables: '',
         fast_food: '',
         diet: '',
         health_rating: '',
-        gpa: ''
+        gpa: '',
+        study_hours: '',
+        extracurricular: '',
+        sleep_hours: '',
+        stress_level: '',
+        class_attendance: ''
     });
 
     const [loading, setLoading] = useState(false);
@@ -43,25 +55,22 @@ const SurveyPage: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         try {
-          await axios.post('/api/submit-survey', formData);
-          window.location.href = '/thankyou';
+            await axios.post('/api/submit-survey', formData);
+            window.location.href = '/thankyou';
         } catch (error) {
-          alert('Error submitting survey');
-          console.error('Error submitting survey:', error);
-        } 
-      };
-
-
-      useEffect(() => {
-        const fetchData = async () => {
-            const data = await getData()
-            console.log(data);
-            
+            alert('Error submitting survey');
+            console.error('Error submitting survey:', error);
         }
+    };
 
-        fetchData()
-       
-      }, [])
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getData();
+            console.log(data);
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -72,6 +81,17 @@ const SurveyPage: React.FC = () => {
 
                 <label htmlFor="age" className={styles.label}>Age:</label>
                 <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} required className={styles.input} />
+
+                <label htmlFor="course" className={styles.label}>Course:</label>
+                <select id="course" name="course" value={formData.course} onChange={handleChange} required className={styles.select}>
+                    <option value="">Select course</option>
+                    <option value="computer_science">Computer Science</option>
+                    <option value="business_administration">Business Administration</option>
+                    <option value="psychology">Psychology</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="medicine">Medicine</option>
+                    <option value="other">Other</option>
+                </select>
 
                 <label htmlFor="gender" className={styles.label}>Gender:</label>
                 <select id="gender" name="gender" value={formData.gender} onChange={handleChange} required className={styles.select}>
@@ -109,9 +129,37 @@ const SurveyPage: React.FC = () => {
                 </select>
 
                 <label htmlFor="gpa" className={styles.label}>Average GPA:</label>
-                <input type="text" id="gpa" name="gpa" value={formData.gpa} onChange={handleChange} required className={styles.input} />
+                <select id="gpa" name="gpa" value={formData.gpa} onChange={handleChange} required className={styles.select}>
+                    <option value="">Select GPA</option>
+                    <option value="1.00">1.00 = 99%-100%</option>
+                    <option value="1.25">1.25 = 96%-98%</option>
+                    <option value="1.50">1.50 = 93%-95%</option>
+                    <option value="1.75">1.75= 90%-88%</option>
+                    <option value="2.00">2.00 = 87%-85%</option>
+                    <option value="2.25">2.25 = 84%-82%</option>
+                    <option value="2.50">2.50 = 81%-79%</option>
+                    <option value="2.75">2.75 = 78%-76%</option>
+                    <option value="3.00">3.00 = 75%-77%</option>
+                    <option value="4">4 = 61%-74%</option>
+                    <option value="5">5 = below 60% </option>
+                </select>
 
-                <button type="submit" className={styles.button}>Submit</button>
+                <label htmlFor="study_hours" className={styles.label}>Average daily study hours:</label>
+                <input type="number" id="study_hours" name="study_hours" value={formData.study_hours} onChange={handleChange} required className={styles.input} />
+
+                <label htmlFor="extracurricular" className={styles.label}>Involvement in extracurricular activities:</label>
+                <input type="text" id="extracurricular" name="extracurricular" value={formData.extracurricular} onChange={handleChange} required className={styles.input} />
+
+                <label htmlFor="sleep_hours" className={styles.label}>Average daily sleep hours:</label>
+                <input type="number" id="sleep_hours" name="sleep_hours" value={formData.sleep_hours} onChange={handleChange} required className={styles.input} />
+
+                <label htmlFor="stress_level" className={styles.label}>Stress level (1-10):</label>
+                <input type="number" id="stress_level" name="stress_level" value={formData.stress_level} onChange={handleChange} required className={styles.input} />
+
+                <label htmlFor="class_attendance" className={styles.label}>Class attendance percentage:</label>
+                <input type="number" id="class_attendance" name="class_attendance" value={formData.class_attendance} onChange={handleChange} required className={styles.input} />
+
+                <button type="submit" className={styles.button} disabled={loading}>{loading ? 'Submitting...' : 'Submit'}</button>
             </form>
         </div>
     );

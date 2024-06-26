@@ -24,7 +24,7 @@
     margin-top: 20px;
 }
 
-.formContainer label {
+.label {
     font-weight: bold;
     margin-bottom: 8px;
     display: block;
@@ -32,10 +32,8 @@
     color: #000;
 }
 
-.formContainer input[type='text'],
-.formContainer input[type='email'],
-.formContainer input[type='number'],
-.formContainer select {
+.input,
+.select {
     width: calc(100% - 22px);
     padding: 12px;
     margin-bottom: 20px;
@@ -47,20 +45,20 @@
     color: #000;
 }
 
-.formContainer select {
+.select {
     appearance: none;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23333" d="M256 352L32 128h448z"/></svg>') no-repeat right 12px center/10px 10px;
     padding-right: 30px;
     color: #000;
 }
 
-.formContainer input:focus,
-.formContainer select:focus {
+.input:focus,
+.select:focus {
     outline: none;
     border-color: #4CAF50;
 }
 
-.formContainer button {
+.button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -73,6 +71,20 @@
     margin-top: 20px;
 }
 
-.formContainer button:hover {
+.button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+.button:hover:enabled {
     background-color: #45a049;
+}
+
+/* Ensuring consistency across all form labels */
+.formContainer label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 18px;
+    color: #000;
 }

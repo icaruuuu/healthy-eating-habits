@@ -9,6 +9,12 @@ const healthSurveySchema = new mongoose.Schema({
     diet: String,
     health_rating: Number,
     gpa: String,
+    course: String,
+    study_hours: Number,
+    extracurricular: String,
+    sleep_hours: Number,
+    stress_level: Number,
+    class_attendance: Number,
 });
 
 export default mongoose.models.HealthSurvey || mongoose.model('HealthSurvey', healthSurveySchema);
