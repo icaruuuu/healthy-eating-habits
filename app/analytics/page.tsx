@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Bar, Pie, Line } from 'react-chartjs-2';
+import { Bar, Pie, Line } from 'react-chartjs-2'; // Import necessary chart types
 import 'chart.js/auto';
-import styles from './Analytics.module.css';
+import styles from './Analytics.module.css'; // Ensure this CSS module exists
 
 interface HealthSurvey {
   name: string;
@@ -23,27 +23,17 @@ interface HealthSurvey {
   class_attendance: number;
 }
 
-const GraphCard: React.FC<{ title: string; chartData: any; counts: any }> = ({ title, chartData, counts }) => (
-    <div className={styles.card}>
-      <h2>{title}</h2>
-      <div className={styles.chartWrapper}>
-        {chartData.type === 'bar' && <Bar data={chartData.data} options={{ maintainAspectRatio: false }} />}
-        {chartData.type === 'line' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
-        {chartData.type === 'pie' && <Pie data={chartData.data} options={{ maintainAspectRatio: false }} />}
-      </div>
-      <div className={styles.counts}>
-        <h3>Counts:</h3>
-        <ul>
-          {Object.keys(counts).map(key => (
-            <li key={key}>
-              {key}: {counts[key]}
-            </li>
-          ))}
-        </ul>
-      </div>
+const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartData }) => (
+  <div className={styles.card}>
+    <h2>{title}</h2>
+    <div className={styles.chartWrapper}>
+      {/* Choose appropriate chart type based on the data */}
+      {chartData.type === 'bar' && <Bar data={chartData.data} options={{ maintainAspectRatio: false }} />}
+      {chartData.type === 'line' && <Line data={chartData.data} options={{ maintainAspectRatio: false }} />}
+      {chartData.type === 'pie' && <Pie data={chartData.data} options={{ maintainAspectRatio: false }} />}
     </div>
-  );
-  
+  </div>
+);
 
 const GraphPage: React.FC = () => {
   const [surveyData, setSurveyData] = useState<HealthSurvey[]>([]);
@@ -52,18 +42,20 @@ const GraphPage: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/get-survey');
+        console.log("Health survey data received:", response.data);
         setSurveyData(response.data);
       } catch (error) {
         console.error('Error fetching health survey data:', error);
-        // Implement error handling
+        // Implement error handling, e.g., setSurveyData([]) or display error message
       }
     };
     fetchData();
   }, []);
 
   const processData = (data: HealthSurvey[]) => {
-    const genderCount = countResponses(data.map(entry => entry.gender));
-    const courseCount = countResponses(data.map(entry => entry.course));
+    // Process data for each question
+
+    // Example: Count responses for each question
     const fruitsVegetablesCount = countResponses(data.map(entry => entry.fruits_vegetables));
     const fastFoodCount = countResponses(data.map(entry => entry.fast_food));
     const dietDistribution = countResponses(data.map(entry => entry.diet));
@@ -71,8 +63,6 @@ const GraphPage: React.FC = () => {
     const gpaByDiet = calculateAverageGpaByDiet(data);
 
     return {
-      genderCount,
-      courseCount,
       fruitsVegetablesCount,
       fastFoodCount,
       dietDistribution,
@@ -110,7 +100,7 @@ const GraphPage: React.FC = () => {
     return averageGpaByDiet;
   };
 
-  const { genderCount, courseCount, fruitsVegetablesCount, fastFoodCount, dietDistribution, healthRatingCorrelation, gpaByDiet } = processData(surveyData);
+  const { fruitsVegetablesCount, fastFoodCount, dietDistribution, healthRatingCorrelation, gpaByDiet } = processData(surveyData);
 
   // Configure chart data
   const fruitVegetableChartData = {
@@ -208,6 +198,7 @@ const GraphPage: React.FC = () => {
       },
     },
   };
+  
 
   const gpaByDietChartData = {
     type: 'bar',
@@ -223,77 +214,19 @@ const GraphPage: React.FC = () => {
     },
   };
 
-  const genderChartData = {
-    type: 'pie',
-    data: {
-      labels: Object.keys(genderCount),
-      datasets: [
-        {
-          label: 'Gender Distribution',
-          data: Object.values(genderCount),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-          ],
-          borderWidth: 1,
-        },
-      ],
-    },
-  };
 
-  const courseChartData = {
-    type: 'pie',
-    data: {
-      labels: Object.keys(courseCount),
-      datasets: [
-        {
-          label: 'Course Distribution',
-          data: Object.values(courseCount),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-          ],
-          borderWidth: 1,
-        },
-      ],
-    },
-  };
-
-  return (
-    <div className={styles.pageBackground}>
-      <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
-      <div className={styles.cardContainer}>
-        <GraphCard title="Gender Distribution" chartData={genderChartData} counts={genderCount} />
-        <GraphCard title="Course Distribution" chartData={courseChartData} counts={courseCount} />
-        <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} counts={fruitsVegetablesCount} />
-        <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} counts={fastFoodCount} />
-        <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} counts={dietDistribution} />
-        <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} counts={fruitsVegetablesCount}  />
-        <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} counts={gpaByDiet} />
-      </div>
-    </div>
-  );
+    return (
+        <div className={styles.pageBackground}>
+        <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
+        <div className={styles.cardContainer}>
+            <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
+            <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
+            <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
+            <GraphCard title="Correlation between Eating Habits and Health Rating" chartData={correlationChartData} />
+            <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
+        </div>
+        </div>
+     );
 };
 
 export default GraphPage;
-
