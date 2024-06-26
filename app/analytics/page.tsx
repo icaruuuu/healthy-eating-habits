@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css';
-import Link from 'next/link';
+
 import { ChartOptions } from 'chart.js';
 
 interface FormData {
@@ -29,7 +29,7 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
   <div className={styles.card}>
     <h2>{title}</h2>
     <div className={styles.chartWrapper}>
-      <Pie data={chartData} options={{ maintainAspectRatio: false }} />
+      <Pie data={chartData} options={{ maintainAspectRatio: false }} width={400} height={400} />
     </div>
   </div>
 );
