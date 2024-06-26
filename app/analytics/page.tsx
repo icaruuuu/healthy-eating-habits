@@ -1,10 +1,8 @@
-// app/admin/page.tsx
-"use client";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-import styles from './Analytics.module.css'; // Import the CSS module
+import styles from './Analytics.module.css';
 import Link from 'next/link';
 
 interface FormData {
@@ -32,6 +30,29 @@ const GraphCard: React.FC<{ title: string, chartData: any }> = ({ title, chartDa
     </div>
   </div>
 );
+
+const ResponseChart: React.FC<{ question: string, responses: number[] }> = ({ question, responses }) => {
+  const data = {
+    labels: responses.map((_, index) => `Response ${index + 1}`),
+    datasets: [{
+      label: question,
+      data: responses,
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }]
+  };
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
+
+  return <Line data={data} options={options} />;
+};
 
 const GraphPage: React.FC = () => {
   const [surveyData, setSurveyData] = useState<FormData[]>([]);
@@ -109,16 +130,17 @@ const GraphPage: React.FC = () => {
 
   return (
     <div>
-      <nav className={styles.topnav}>
-        <div className={styles.left}>
-          <Link href="/dashboard">Profile</Link>
-        </div>
-        <div className={styles.middle}>
-          <Link href="/dashboard/admin">Dashboard</Link>
-          <Link href="/dashboard/admin/survey-answers">Survey Answers</Link>
-        </div>
-      </nav>
       <h1 className={styles.title}>Healthy Eating Habits and Academic Performance</h1>
+      
+      {/* Render individual response charts */}
+      {surveyData.map((response, index) => (
+        <div key={index}>
+          <h3>Response Charts for Question {index + 1}</h3>
+          <ResponseChart question={`Question ${index + 1}`} responses={[parseFloat(response.gpa)]} />
+          {/* Replace `parseFloat(response.gpa)` with appropriate response data */}
+        </div>
+      ))}
+
       <div className={styles.cardContainer}>
         <GraphCard title="Average GPA by Diet" chartData={dietChartData} />
         <GraphCard title="Average GPA by Study Hours" chartData={studyHoursChartData} />
