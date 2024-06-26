@@ -85,7 +85,7 @@ const GraphPage: React.FC = () => {
 
   // Function to process data for diet distribution pie chart
   const processDietData = (data: SurveyData[]) => {
-    const diets = ["Vegetarian", "Vegan", "Omnivore", "Other"];
+    const diets = ["None", "Vegetarian", "Vegan", "Keto", "Other"];
     const dietCounts = diets.map(diet => {
       const count = data.filter(d => d.diet === diet).length;
       return count;
@@ -107,7 +107,7 @@ const GraphPage: React.FC = () => {
 
   // Function to process data for GPA distribution pie chart
   const processGpaData = (data: SurveyData[]) => {
-    const gpas = ["3.0 - 3.5", "3.5 - 4.0", "Below 3.0"];
+    const gpas = ["1.00", "1.25", "1.50", "1.75", "2.00", "2.25", "2.50", "2.75", "3.00", "4", "5"];
     const gpaCounts = gpas.map(gpa => {
       const count = data.filter(d => d.gpa === gpa).length;
       return count;
