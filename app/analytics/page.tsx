@@ -272,13 +272,13 @@ const GraphPage: React.FC = () => {
     <div className={styles.pageBackground}>
       <h1 className={styles.title}>Healthy Eating Habits and Academic Performance Analysis</h1>
         <div className={styles.container}>
+            <GraphCard title="Gender Distribution" chartData={genderChartData} />
+            <GraphCard title="Course Distribution" chartData={courseChartData} />
             <GraphCard title="Fruits and Vegetables Consumption" chartData={fruitVegetableChartData} />
             <GraphCard title="Fast Food Consumption Frequency" chartData={fastFoodChartData} />
             <GraphCard title="Diet Distribution" chartData={dietDistributionChartData} />
             <GraphCard title="Correlation: Fruits/Vegetables vs Health Rating" chartData={correlationChartData} />
             <GraphCard title="Average GPA by Diet" chartData={gpaByDietChartData} />
-            <GraphCard title="Gender Distribution" chartData={genderChartData} />
-            <GraphCard title="Course Distribution" chartData={courseChartData} />
         </div>
     </div>
   );
