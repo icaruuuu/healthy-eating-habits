@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import styles from './Analytics.module.css';
 import Link from 'next/link';
+"use client"
 
 interface FormData {
   name: string;
